@@ -9,6 +9,10 @@ export default {
     library: true,
     libraryTarget: 'commonjs2'
   },
+  externals: [
+    'tcomb',
+    'tcomb-validation'
+  ],
   module: {
     loaders: [
       {
