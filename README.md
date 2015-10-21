@@ -1,73 +1,56 @@
-# pathmirror
+# tcomb-decorators
 
-Advanced key mirror function that can mirror nested object keys. Intended for the generation of flux action names.
+ES7 Decorators for [tcomb](https://github.com/gcanti/tcomb).
 
 ## Installation
 
 ```
-npm install pathmirror --save
+npm install tcomb-decorators --save
 ```
 
 ## Usage
 
-```js
-import pathMirror from 'pathmirror';
-
-const mirrored = pathMirror({
-    foo: {
-        bar: {
-            baz: null
-        }
-    }
-});
-
-console.log(foo.bar.baz); // foo_bar_baz
-```
-
-You can change the default delimiter via the second parameter.
+### @func
 
 ```js
-import pathMirror from 'pathmirror';
+import { func } from 'tcomb-decorators';
+import { String as Str } from 'tcomb';
 
-const mirrored = pathMirror({
-    foo: {
-        bar: {
-            baz: null
-        }
-    }
-}, '.');
-
-console.log(foo.bar.baz); // foo.bar.baz
-```
-
-## Use Case
-
-This module is intended for generating hierachical action names when working with flux:
-
-```js
-const actions = pathMirror({
-    APP: {
-        INIT: null
-    },
-    POSTS: {
-        REQUEST: null,
-        FETCHED: null,
-        ERROR: null
-    }
-});
-
-console.log(actions);
-/*
-{
-    APP: {
-        INIT: 'APP_INIT'
-    },
-    POSTS: {
-        REQUEST: 'POSTS_REQUEST',
-        FETECHED: 'POSTS_FETECHED',
-        ERROR: 'POSTS_ERROR'
+class SomeClass {
+    @func([Str], Str)
+    someFunc(value) {
+        return value + 'World';
     }
 }
- */
-}
+
+const instance = new SomeClass();
+
+instance.someFunc('Hello '); // Works
+instance.someFunc(null); // Throws error
 ```
+
+### @struct
+
+_Experimental_: The current behaviour maybe changed in the future.
+
+```js
+import { struct } from 'tcomb-decorators';
+import { String as Str } from 'tcomb';
+
+@struct({
+    name: Str
+})
+class Person {
+    constructor(name) {
+        this.name = name;
+    }
+}
+
+new Person('John Doe') // Works
+new Person(); // Throws error
+```
+
+The `struct` decorator works by wrapping the constructor and using `tcomb-validation`s `validate` function after class construction. So typ checking is only applyed on initialtion. Further modifications of the object does not lead to an validation again.
+
+# LISENCE
+MIT

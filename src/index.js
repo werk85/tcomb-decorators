@@ -1,3 +1,4 @@
 import func from './func';
+import struct from './struct';
 
-export { func };
+export { func, struct };

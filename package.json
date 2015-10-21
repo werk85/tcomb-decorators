@@ -11,9 +11,12 @@
     "coverage": "babel-node node_modules/.bin/isparta cover --report text --report html node_modules/.bin/_mocha -- --reporter dot"
   },
   "keywords": [
+    "es2016",
     "es7",
+    "annotations",
     "decorators",
-    "tcomb"
+    "tcomb",
+    "tcomb-validation"
   ],
   "author": "Malte Legenhausen <legenhausen@werk85.de>",
   "license": "MIT",
@@ -28,6 +31,7 @@
     "webpack": "^1.12.2"
   },
   "dependencies": {
-    "tcomb": "^2.5.1"
+    "tcomb": "^2.5.1",
+    "tcomb-validation": "^2.2.0"
   }
 }
